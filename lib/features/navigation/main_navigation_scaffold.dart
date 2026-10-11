@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_typography.dart';
 import '../analytics/presentation/pages/analytics_page.dart';
+import '../calendar/presentation/pages/calendar_page.dart';
 import '../transactions/presentation/pages/dashboard_page.dart';
 
 class MainNavigationScaffold extends StatefulWidget {
@@ -15,7 +16,11 @@ class MainNavigationScaffold extends StatefulWidget {
 class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [DashboardPage(), AnalyticsPage()];
+  final List<Widget> _pages = const [
+    DashboardPage(),
+    CalendarPage(),
+    AnalyticsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
       backgroundColor: AppColors.bgDark,
       body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
         decoration: BoxDecoration(
           color: AppColors.bgDark.withOpacity(0.9),
           border: const Border(
@@ -34,7 +39,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
           top: false,
           child: Container(
             height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: AppColors.cardDark,
               borderRadius: BorderRadius.circular(30),
@@ -50,6 +55,11 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
                 ),
                 _buildNavItem(
                   index: 1,
+                  icon: Icons.calendar_month_rounded,
+                  label: 'Kalender',
+                ),
+                _buildNavItem(
+                  index: 2,
                   icon: Icons.pie_chart_outline_rounded,
                   label: 'Analisis',
                 ),
@@ -73,7 +83,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
       borderRadius: BorderRadius.circular(24),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
               ? AppColors.primaryAccent.withOpacity(0.18)

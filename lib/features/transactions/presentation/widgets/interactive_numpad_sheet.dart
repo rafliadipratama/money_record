@@ -6,6 +6,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/math/expression_evaluator.dart';
 import '../../../../core/utils/currency_formatter.dart';
+import '../../../../core/utils/date_utils.dart';
 import '../../../categories/domain/entities/category_entity.dart';
 import '../../domain/entities/transaction_entity.dart';
 import 'category_selector_chips.dart';
@@ -13,24 +14,30 @@ import 'category_selector_chips.dart';
 class InteractiveNumpadSheet extends StatefulWidget {
   final List<CategoryEntity> categories;
   final ValueChanged<TransactionEntity> onSave;
+  final DateTime? initialDate;
 
   const InteractiveNumpadSheet({
     super.key,
     required this.categories,
     required this.onSave,
+    this.initialDate,
   });
 
   static Future<void> show(
     BuildContext context, {
     required List<CategoryEntity> categories,
     required ValueChanged<TransactionEntity> onSave,
+    DateTime? initialDate,
   }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) =>
-          InteractiveNumpadSheet(categories: categories, onSave: onSave),
+      builder: (_) => InteractiveNumpadSheet(
+        categories: categories,
+        onSave: onSave,
+        initialDate: initialDate,
+      ),
     );
   }
 
@@ -42,6 +49,7 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
   final TextEditingController _titleController = TextEditingController();
   TransactionType _selectedType = TransactionType.expense;
   String? _selectedCategoryId;
+  late DateTime _transactionDate;
 
   String _expression = '';
   double _calculatedAmount = 0.0;
@@ -49,7 +57,7 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
   @override
   void initState() {
     super.initState();
-    // Default to first matching category
+    _transactionDate = widget.initialDate ?? DateTime.now();
     _updateDefaultCategory();
   }
 
@@ -134,7 +142,7 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
       amount: _calculatedAmount,
       type: _selectedType,
       categoryId: _selectedCategoryId!,
-      date: DateTime.now(),
+      date: _transactionDate,
     );
 
     widget.onSave(transaction);
@@ -245,7 +253,72 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
               ],
             ),
           ),
-          const SizedBox(height: 12),
+          // Date Selector Pill
+          Row(
+            children: [
+              InkWell(
+                onTap: () async {
+                  final picked = await showDatePicker(
+                    context: context,
+                    initialDate: _transactionDate,
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2035),
+                    builder: (context, child) => Theme(
+                      data: ThemeData.dark().copyWith(
+                        colorScheme: const ColorScheme.dark(
+                          primary: AppColors.primaryAccent,
+                          onPrimary: Colors.black,
+                          surface: AppColors.cardDark,
+                          onSurface: Colors.white,
+                        ),
+                      ),
+                      child: child!,
+                    ),
+                  );
+                  if (picked != null) {
+                    setState(() => _transactionDate = picked);
+                  }
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.bgDark,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.cardBorderDark),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.event_rounded,
+                        size: 14,
+                        color: AppColors.primaryAccent,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        AppDateUtils.formatRelativeDate(_transactionDate),
+                        style: AppTypography.caption.copyWith(
+                          color: AppColors.textPrimaryDark,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(
+                        Icons.arrow_drop_down_rounded,
+                        size: 16,
+                        color: AppColors.textSecondaryDark,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
 
           // Title TextField
           TextField(

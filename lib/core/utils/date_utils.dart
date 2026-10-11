@@ -38,4 +38,14 @@ class AppDateUtils {
   static DateTime endOfMonth(DateTime date) {
     return DateTime(date.year, date.month + 1, 0, 23, 59, 59, 999);
   }
+
+  /// Checks if two dates fall on the exact same calendar day.
+  static bool isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
+
+  /// Returns formatted full day name and date: "Minggu, 11 Oktober 2026"
+  static String formatFullDate(DateTime date) {
+    return DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(date);
+  }
 }
