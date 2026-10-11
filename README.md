@@ -114,7 +114,7 @@ flutter build apk --split-per-abi
 
 1. **Clone repository ini:**
    ```bash
-   git clone https://github.com/USERNAME/money_record.git
+   git clone https://github.com/rafliadipratama/money_record.git
    cd money_record
    ```
 
