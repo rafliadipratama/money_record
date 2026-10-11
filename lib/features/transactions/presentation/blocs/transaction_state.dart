@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../categories/domain/entities/category_entity.dart';
 import '../../domain/entities/monthly_summary.dart';
 import '../../domain/entities/transaction_entity.dart';
@@ -59,12 +60,12 @@ class TransactionState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        selectedMonth,
-        transactions,
-        summary,
-        categories,
-        isPrivacyMode,
-        errorMessage,
-      ];
+    status,
+    selectedMonth,
+    transactions,
+    summary,
+    categories,
+    isPrivacyMode,
+    errorMessage,
+  ];
 }

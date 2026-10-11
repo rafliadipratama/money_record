@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../categories/domain/repositories/category_repository.dart';
 import '../../domain/repositories/transaction_repository.dart';
 import '../../domain/usecases/delete_transaction.dart';
@@ -32,7 +34,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     LoadTransactionsEvent event,
     Emitter<TransactionState> emit,
   ) async {
-    emit(state.copyWith(status: TransactionStatus.loading, selectedMonth: event.month));
+    emit(
+      state.copyWith(
+        status: TransactionStatus.loading,
+        selectedMonth: event.month,
+      ),
+    );
 
     try {
       final categories = await categoryRepository.getCategories();
@@ -62,8 +69,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           }
 
           final netSavings = totalIncome - totalExpense;
-          final savingsRate =
-              totalIncome > 0 ? (netSavings / totalIncome) * 100 : 0.0;
+          final savingsRate = totalIncome > 0
+              ? (netSavings / totalIncome) * 100
+              : 0.0;
 
           final computedSummary = state.summary.copyWithMonthAndData(
             month: event.month,
@@ -92,10 +100,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         },
       );
     } catch (e) {
-      emit(state.copyWith(
-        status: TransactionStatus.failure,
-        errorMessage: e.toString(),
-      ));
+      emit(
+        state.copyWith(
+          status: TransactionStatus.failure,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -112,13 +122,17 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   ) async {
     try {
       await saveTransactionUseCase(event.transaction);
-      final summary = await transactionRepository.getMonthlySummary(state.selectedMonth);
+      final summary = await transactionRepository.getMonthlySummary(
+        state.selectedMonth,
+      );
       emit(state.copyWith(summary: summary));
     } catch (e) {
-      emit(state.copyWith(
-        status: TransactionStatus.failure,
-        errorMessage: e.toString(),
-      ));
+      emit(
+        state.copyWith(
+          status: TransactionStatus.failure,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -128,13 +142,17 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   ) async {
     try {
       await deleteTransactionUseCase(event.id);
-      final summary = await transactionRepository.getMonthlySummary(state.selectedMonth);
+      final summary = await transactionRepository.getMonthlySummary(
+        state.selectedMonth,
+      );
       emit(state.copyWith(summary: summary));
     } catch (e) {
-      emit(state.copyWith(
-        status: TransactionStatus.failure,
-        errorMessage: e.toString(),
-      ));
+      emit(
+        state.copyWith(
+          status: TransactionStatus.failure,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 

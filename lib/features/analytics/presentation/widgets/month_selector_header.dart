@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/date_utils.dart';
@@ -35,7 +36,10 @@ class MonthSelectorHeader extends StatelessWidget {
         children: [
           IconButton(
             onPressed: _previousMonth,
-            icon: const Icon(Icons.chevron_left_rounded, color: AppColors.textPrimaryDark),
+            icon: const Icon(
+              Icons.chevron_left_rounded,
+              color: AppColors.textPrimaryDark,
+            ),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
             tooltip: 'Bulan Sebelumnya',
@@ -51,7 +55,10 @@ class MonthSelectorHeader extends StatelessWidget {
           const SizedBox(width: 8),
           IconButton(
             onPressed: _nextMonth,
-            icon: const Icon(Icons.chevron_right_rounded, color: AppColors.textPrimaryDark),
+            icon: const Icon(
+              Icons.chevron_right_rounded,
+              color: AppColors.textPrimaryDark,
+            ),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
             tooltip: 'Bulan Berikutnya',

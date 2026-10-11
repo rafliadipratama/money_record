@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:sqflite/sqflite.dart';
+
 import '../../../../core/database/database_helper.dart';
 import '../../../../core/utils/date_utils.dart';
 import '../../domain/entities/monthly_summary.dart';
@@ -16,7 +18,9 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
-  Stream<List<TransactionEntity>> watchTransactionsByMonth(DateTime month) async* {
+  Stream<List<TransactionEntity>> watchTransactionsByMonth(
+    DateTime month,
+  ) async* {
     yield await getTransactionsByMonth(month);
     await for (final _ in _changeStreamController.stream) {
       yield await getTransactionsByMonth(month);
@@ -64,7 +68,9 @@ class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     final netSavings = totalIncome - totalExpense;
-    final savingsRate = totalIncome > 0 ? (netSavings / totalIncome) * 100 : 0.0;
+    final savingsRate = totalIncome > 0
+        ? (netSavings / totalIncome) * 100
+        : 0.0;
 
     return MonthlySummary(
       month: month,
@@ -96,11 +102,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
   @override
   Future<void> deleteTransaction(String id) async {
     final db = await DatabaseHelper.database;
-    await db.delete(
-      'transactions',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await db.delete('transactions', where: 'id = ?', whereArgs: [id]);
 
     _notifyChanges();
   }

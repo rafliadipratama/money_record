@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,7 +19,8 @@ class DatabaseHelper {
 
   static Future<Database> _initDatabase() async {
     // If running on desktop (Linux, Windows, macOS), initialize sqflite_common_ffi
-    if (!kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
+    if (!kIsWeb &&
+        (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
       sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
     }
@@ -68,7 +70,11 @@ class DatabaseHelper {
     ''');
 
     // Indexes for fast range queries and monthly aggregations
-    await db.execute('CREATE INDEX idx_transactions_date ON transactions (date)');
-    await db.execute('CREATE INDEX idx_transactions_category ON transactions (category_id)');
+    await db.execute(
+      'CREATE INDEX idx_transactions_date ON transactions (date)',
+    );
+    await db.execute(
+      'CREATE INDEX idx_transactions_category ON transactions (category_id)',
+    );
   }
 }

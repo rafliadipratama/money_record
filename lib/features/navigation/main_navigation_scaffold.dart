@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_typography.dart';
 import '../analytics/presentation/pages/analytics_page.dart';
@@ -14,19 +15,13 @@ class MainNavigationScaffold extends StatefulWidget {
 class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    DashboardPage(),
-    AnalyticsPage(),
-  ];
+  final List<Widget> _pages = const [DashboardPage(), AnalyticsPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgDark,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
         decoration: BoxDecoration(
@@ -80,7 +75,9 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryAccent.withOpacity(0.18) : Colors.transparent,
+          color: isSelected
+              ? AppColors.primaryAccent.withOpacity(0.18)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
@@ -89,7 +86,9 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
             Icon(
               icon,
               size: 20,
-              color: isSelected ? AppColors.primaryAccent : AppColors.textMutedDark,
+              color: isSelected
+                  ? AppColors.primaryAccent
+                  : AppColors.textMutedDark,
             ),
             if (isSelected) ...[
               const SizedBox(width: 8),

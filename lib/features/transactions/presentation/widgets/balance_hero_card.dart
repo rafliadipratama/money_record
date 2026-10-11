@@ -1,6 +1,8 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/currency_formatter.dart';
@@ -32,10 +34,7 @@ class BalanceHeroCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.cardDark.withOpacity(0.85),
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: AppColors.cardBorderDark,
-              width: 1.2,
-            ),
+            border: Border.all(color: AppColors.cardBorderDark, width: 1.2),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),
@@ -53,7 +52,10 @@ class BalanceHeroCard extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primaryAccent.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(20),
@@ -74,11 +76,15 @@ class BalanceHeroCard extends StatelessWidget {
                   IconButton(
                     onPressed: onTogglePrivacy,
                     icon: Icon(
-                      isPrivacyMode ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                      isPrivacyMode
+                          ? Icons.visibility_off_rounded
+                          : Icons.visibility_rounded,
                       color: AppColors.textSecondaryDark,
                       size: 22,
                     ),
-                    tooltip: isPrivacyMode ? 'Tampilkan Saldo' : 'Sembunyikan Saldo',
+                    tooltip: isPrivacyMode
+                        ? 'Tampilkan Saldo'
+                        : 'Sembunyikan Saldo',
                   ),
                 ],
               ),
@@ -91,7 +97,9 @@ class BalanceHeroCard extends StatelessWidget {
                       : CurrencyFormatter.format(netSavings),
                   key: ValueKey(isPrivacyMode ? 'hidden' : netSavings),
                   style: AppTypography.balanceDisplay.copyWith(
-                    color: isPositive ? AppColors.textPrimaryDark : AppColors.expense,
+                    color: isPositive
+                        ? AppColors.textPrimaryDark
+                        : AppColors.expense,
                   ),
                 ),
               ),
@@ -125,7 +133,10 @@ class BalanceHeroCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: LinearProgressIndicator(
-                    value: (summary.totalExpense / summary.totalIncome).clamp(0.0, 1.0),
+                    value: (summary.totalExpense / summary.totalIncome).clamp(
+                      0.0,
+                      1.0,
+                    ),
                     minHeight: 6,
                     backgroundColor: AppColors.income.withOpacity(0.2),
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -174,10 +185,7 @@ class BalanceHeroCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withOpacity(0.25),
-          width: 1,
-        ),
+        border: Border.all(color: color.withOpacity(0.25), width: 1),
       ),
       child: Row(
         children: [
@@ -196,11 +204,15 @@ class BalanceHeroCard extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: AppTypography.caption.copyWith(color: AppColors.textSecondaryDark),
+                  style: AppTypography.caption.copyWith(
+                    color: AppColors.textSecondaryDark,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  isPrivacyMode ? '••••••' : CurrencyFormatter.formatCompact(amount),
+                  isPrivacyMode
+                      ? '••••••'
+                      : CurrencyFormatter.formatCompact(amount),
                   style: AppTypography.numberBold.copyWith(
                     fontSize: 14,
                     color: color,

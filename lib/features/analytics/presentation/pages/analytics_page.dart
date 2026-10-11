@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/date_utils.dart';
@@ -46,8 +47,13 @@ class AnalyticsPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    csvData.length > 200 ? '${csvData.substring(0, 200)}...' : csvData,
-                    style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                    csvData.length > 200
+                        ? '${csvData.substring(0, 200)}...'
+                        : csvData,
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                    ),
                   ),
                 ),
               ],
@@ -55,7 +61,10 @@ class AnalyticsPage extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: const Text('Tutup', style: TextStyle(color: AppColors.primaryAccent)),
+                child: const Text(
+                  'Tutup',
+                  style: TextStyle(color: AppColors.primaryAccent),
+                ),
               ),
             ],
           ),
@@ -63,9 +72,8 @@ class AnalyticsPage extends StatelessWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal export CSV: $e')),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Gagal export CSV: $e')));
       }
     }
   }
@@ -107,8 +115,9 @@ class AnalyticsPage extends StatelessWidget {
                     const SizedBox(width: 8),
                     MonthSelectorHeader(
                       selectedMonth: state.selectedMonth,
-                      onMonthChanged: (m) =>
-                          context.read<TransactionBloc>().add(ChangeMonthEvent(m)),
+                      onMonthChanged: (m) => context
+                          .read<TransactionBloc>()
+                          .add(ChangeMonthEvent(m)),
                     ),
                   ],
                 ),
@@ -124,7 +133,9 @@ class AnalyticsPage extends StatelessWidget {
                         color: summary.savingsRate >= 20
                             ? AppColors.income
                             : AppColors.textSecondaryDark,
-                        subtitle: summary.savingsRate >= 20 ? 'Kondisi Sehat' : 'Perlu Dihemat',
+                        subtitle: summary.savingsRate >= 20
+                            ? 'Kondisi Sehat'
+                            : 'Perlu Dihemat',
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -162,14 +173,24 @@ class AnalyticsPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Export Laporan (CSV)', style: AppTypography.subheadline),
+                          Text(
+                            'Export Laporan (CSV)',
+                            style: AppTypography.subheadline,
+                          ),
                           const SizedBox(height: 2),
-                          Text('Salin rekap data ke spreadsheet', style: AppTypography.caption),
+                          Text(
+                            'Salin rekap data ke spreadsheet',
+                            style: AppTypography.caption,
+                          ),
                         ],
                       ),
                       ElevatedButton.icon(
-                        onPressed: () => _exportCsv(context, state.selectedMonth),
-                        icon: const Icon(Icons.file_download_outlined, size: 18),
+                        onPressed: () =>
+                            _exportCsv(context, state.selectedMonth),
+                        icon: const Icon(
+                          Icons.file_download_outlined,
+                          size: 18,
+                        ),
                         label: const Text('Export'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryLight,
@@ -177,7 +198,9 @@ class AnalyticsPage extends StatelessWidget {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: const BorderSide(color: AppColors.cardBorderDark),
+                            side: const BorderSide(
+                              color: AppColors.cardBorderDark,
+                            ),
                           ),
                         ),
                       ),

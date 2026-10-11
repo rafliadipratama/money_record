@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+
 import 'features/categories/data/repositories/category_repository_impl.dart';
 import 'features/categories/domain/repositories/category_repository.dart';
 import 'features/transactions/data/repositories/transaction_repository_impl.dart';
@@ -30,5 +31,7 @@ Future<void> initDependencies() async {
 
   // Repositories
   sl.registerLazySingleton<CategoryRepository>(() => CategoryRepositoryImpl());
-  sl.registerLazySingleton<TransactionRepository>(() => TransactionRepositoryImpl());
+  sl.registerLazySingleton<TransactionRepository>(
+    () => TransactionRepositoryImpl(),
+  );
 }

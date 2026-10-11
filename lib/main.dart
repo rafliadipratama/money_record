@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
 import 'core/constants/app_colors.dart';
 import 'features/navigation/main_navigation_scaffold.dart';
 import 'features/transactions/presentation/blocs/transaction_bloc.dart';
@@ -36,7 +37,8 @@ class MoneyRecordApp extends StatelessWidget {
     final currentMonth = DateTime(now.year, now.month, 1);
 
     return BlocProvider(
-      create: (context) => sl<TransactionBloc>()..add(LoadTransactionsEvent(currentMonth)),
+      create: (context) =>
+          sl<TransactionBloc>()..add(LoadTransactionsEvent(currentMonth)),
       child: MaterialApp(
         title: 'MoneyRecord',
         debugShowCheckedModeBanner: false,

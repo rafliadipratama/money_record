@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../categories/domain/entities/category_entity.dart';
@@ -36,7 +37,9 @@ class CategorySelectorChips extends StatelessWidget {
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
-                color: isSelected ? catColor.withOpacity(0.2) : AppColors.cardDark,
+                color: isSelected
+                    ? catColor.withOpacity(0.2)
+                    : AppColors.cardDark,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: isSelected ? catColor : AppColors.cardBorderDark,
@@ -57,8 +60,12 @@ class CategorySelectorChips extends StatelessWidget {
                   Text(
                     cat.name,
                     style: AppTypography.caption.copyWith(
-                      color: isSelected ? AppColors.textPrimaryDark : AppColors.textSecondaryDark,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                      color: isSelected
+                          ? AppColors.textPrimaryDark
+                          : AppColors.textSecondaryDark,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.w400,
                     ),
                   ),
                 ],

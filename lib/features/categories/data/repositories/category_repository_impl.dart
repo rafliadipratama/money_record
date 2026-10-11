@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+
 import '../../../../core/database/database_helper.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/repositories/category_repository.dart';
@@ -46,11 +47,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   @override
   Future<void> deleteCategory(String id) async {
     final db = await DatabaseHelper.database;
-    await db.delete(
-      'categories',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await db.delete('categories', where: 'id = ?', whereArgs: [id]);
   }
 
   @override

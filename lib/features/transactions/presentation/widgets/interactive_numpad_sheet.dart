@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/math/expression_evaluator.dart';
@@ -28,10 +29,8 @@ class InteractiveNumpadSheet extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => InteractiveNumpadSheet(
-        categories: categories,
-        onSave: onSave,
-      ),
+      builder: (_) =>
+          InteractiveNumpadSheet(categories: categories, onSave: onSave),
     );
   }
 
@@ -55,7 +54,9 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
   }
 
   void _updateDefaultCategory() {
-    final matching = widget.categories.where((c) => c.type == _selectedType).toList();
+    final matching = widget.categories
+        .where((c) => c.type == _selectedType)
+        .toList();
     if (matching.isNotEmpty) {
       _selectedCategoryId = matching.first.id;
     } else if (widget.categories.isNotEmpty) {
@@ -121,9 +122,9 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
     }
 
     if (_selectedCategoryId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Pilih kategori transaksi')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Pilih kategori transaksi')));
       return;
     }
 
@@ -253,10 +254,16 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
             decoration: InputDecoration(
               hintText: 'Judul transaksi (mis: Makan Siang, Kopi)',
               hintStyle: AppTypography.caption,
-              prefixIcon: const Icon(Icons.edit_note_rounded, color: AppColors.textSecondaryDark),
+              prefixIcon: const Icon(
+                Icons.edit_note_rounded,
+                color: AppColors.textSecondaryDark,
+              ),
               filled: true,
               fillColor: AppColors.bgDark,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 12,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(color: AppColors.cardBorderDark),
@@ -275,7 +282,9 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
 
           // Horizontal Category Chips
           CategorySelectorChips(
-            categories: filteredCategories.isNotEmpty ? filteredCategories : widget.categories,
+            categories: filteredCategories.isNotEmpty
+                ? filteredCategories
+                : widget.categories,
             selectedCategoryId: _selectedCategoryId,
             onSelected: (id) => setState(() => _selectedCategoryId = id),
           ),
@@ -418,7 +427,10 @@ class _InteractiveNumpadSheetState extends State<InteractiveNumpadSheet> {
               alignment: Alignment.center,
               child: Text(
                 op,
-                style: AppTypography.headline.copyWith(fontSize: 20, color: color),
+                style: AppTypography.headline.copyWith(
+                  fontSize: 20,
+                  color: color,
+                ),
               ),
             ),
           ),

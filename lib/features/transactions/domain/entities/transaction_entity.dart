@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../categories/domain/entities/category_entity.dart';
 
 class TransactionEntity extends Equatable {
@@ -54,15 +55,15 @@ class TransactionEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        title,
-        amount,
-        type,
-        categoryId,
-        date,
-        note,
-        tags,
-        isRecurring,
-        recurrenceInterval,
-      ];
+    id,
+    title,
+    amount,
+    type,
+    categoryId,
+    date,
+    note,
+    tags,
+    isRecurring,
+    recurrenceInterval,
+  ];
 }

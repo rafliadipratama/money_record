@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/currency_formatter.dart';
@@ -75,8 +76,9 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
                             _touchedIndex = -1;
                             return;
                           }
-                          _touchedIndex =
-                              pieTouchResponse.touchedSection!.touchedSectionIndex;
+                          _touchedIndex = pieTouchResponse
+                              .touchedSection!
+                              .touchedSectionIndex;
                         });
                       },
                     ),
@@ -87,7 +89,8 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
                       final isTouched = i == _touchedIndex;
                       final radius = isTouched ? 34.0 : 28.0;
                       final entry = entries[i];
-                      final cat = widget.categories
+                      final cat =
+                          widget.categories
                               .where((c) => c.id == entry.key)
                               .firstOrNull ??
                           CategoryEntity(
@@ -98,12 +101,15 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
                             type: TransactionType.expense,
                           );
 
-                      final percentage = (entry.value / widget.totalExpense) * 100;
+                      final percentage =
+                          (entry.value / widget.totalExpense) * 100;
 
                       return PieChartSectionData(
                         color: Color(cat.colorValue),
                         value: entry.value,
-                        title: isTouched ? '${percentage.toStringAsFixed(0)}%' : '',
+                        title: isTouched
+                            ? '${percentage.toStringAsFixed(0)}%'
+                            : '',
                         radius: radius,
                         titleStyle: AppTypography.caption.copyWith(
                           color: Colors.white,
@@ -137,9 +143,8 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
           const SizedBox(height: 20),
           // Category Legend list
           ...entries.map((entry) {
-            final cat = widget.categories
-                    .where((c) => c.id == entry.key)
-                    .firstOrNull ??
+            final cat =
+                widget.categories.where((c) => c.id == entry.key).firstOrNull ??
                 CategoryEntity(
                   id: entry.key,
                   name: 'Lainnya',

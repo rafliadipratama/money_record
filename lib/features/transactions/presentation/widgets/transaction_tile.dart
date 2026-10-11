@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../../core/utils/currency_formatter.dart';
@@ -61,7 +62,11 @@ class TransactionTile extends StatelessWidget {
           color: AppColors.expense,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const Icon(Icons.delete_outline_rounded, color: Colors.white, size: 24),
+        child: const Icon(
+          Icons.delete_outline_rounded,
+          color: Colors.white,
+          size: 24,
+        ),
       ),
       onDismissed: (_) => onDelete(),
       child: Container(

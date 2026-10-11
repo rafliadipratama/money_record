@@ -63,14 +63,14 @@ class MonthlySummary extends Equatable {
 
   @override
   List<Object?> get props => [
-        month,
-        totalIncome,
-        totalExpense,
-        netSavings,
-        savingsRate,
-        dailyExpenses,
-        dailyIncomes,
-        categoryBreakdown,
-        transactionCount,
-      ];
+    month,
+    totalIncome,
+    totalExpense,
+    netSavings,
+    savingsRate,
+    dailyExpenses,
+    dailyIncomes,
+    categoryBreakdown,
+    transactionCount,
+  ];
 }

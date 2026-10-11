@@ -31,14 +31,17 @@ void main() {
     date: DateTime(2026, 10, 11),
   );
 
-  test('successfully calls repository.saveTransaction for valid input', () async {
-    when(() => mockRepository.saveTransaction(any()))
-        .thenAnswer((_) async {});
+  test(
+    'successfully calls repository.saveTransaction for valid input',
+    () async {
+      when(() => mockRepository.saveTransaction(any()))
+          .thenAnswer((_) async {});
 
-    await useCase(validTx);
+      await useCase(validTx);
 
-    verify(() => mockRepository.saveTransaction(validTx)).called(1);
-  });
+      verify(() => mockRepository.saveTransaction(validTx)).called(1);
+    },
+  );
 
   test('throws ArgumentError when amount is zero or negative', () async {
     final invalidTx = validTx.copyWith(amount: 0);

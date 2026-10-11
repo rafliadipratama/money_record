@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../../analytics/presentation/widgets/month_selector_header.dart';
@@ -64,7 +65,9 @@ class DashboardPage extends StatelessWidget {
                         MonthSelectorHeader(
                           selectedMonth: state.selectedMonth,
                           onMonthChanged: (month) {
-                            context.read<TransactionBloc>().add(ChangeMonthEvent(month));
+                            context.read<TransactionBloc>().add(
+                              ChangeMonthEvent(month),
+                            );
                           },
                         ),
                       ],
@@ -80,7 +83,9 @@ class DashboardPage extends StatelessWidget {
                       summary: state.summary,
                       isPrivacyMode: state.isPrivacyMode,
                       onTogglePrivacy: () {
-                        context.read<TransactionBloc>().add(const TogglePrivacyModeEvent());
+                        context.read<TransactionBloc>().add(
+                          const TogglePrivacyModeEvent(),
+                        );
                       },
                     ),
                   ),
@@ -113,7 +118,10 @@ class DashboardPage extends StatelessWidget {
                           style: AppTypography.subheadline,
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.cardDark,
                             borderRadius: BorderRadius.circular(10),
@@ -173,30 +181,31 @@ class DashboardPage extends StatelessWidget {
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
                     sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final tx = state.transactions[index];
-                          final category = state.categories
-                              .where((c) => c.id == tx.categoryId)
-                              .firstOrNull;
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final tx = state.transactions[index];
+                        final category = state.categories
+                            .where((c) => c.id == tx.categoryId)
+                            .firstOrNull;
 
-                          return TransactionTile(
-                            transaction: tx,
-                            category: category,
-                            isPrivacyMode: state.isPrivacyMode,
-                            onDelete: () {
-                              context.read<TransactionBloc>().add(DeleteTransactionEvent(tx.id));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Transaksi "${tx.title}" berhasil dihapus'),
-                                  duration: const Duration(seconds: 2),
+                        return TransactionTile(
+                          transaction: tx,
+                          category: category,
+                          isPrivacyMode: state.isPrivacyMode,
+                          onDelete: () {
+                            context.read<TransactionBloc>().add(
+                              DeleteTransactionEvent(tx.id),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Transaksi "${tx.title}" berhasil dihapus',
                                 ),
-                              );
-                            },
-                          );
-                        },
-                        childCount: state.transactions.length,
-                      ),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                        );
+                      }, childCount: state.transactions.length),
                     ),
                   ),
               ],

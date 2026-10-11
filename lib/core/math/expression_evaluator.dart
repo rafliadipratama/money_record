@@ -34,7 +34,10 @@ class ExpressionEvaluator {
         }
 
         // Handle unary minus: e.g. at start or after another operator / '('
-        if (char == '-' && (tokens.isEmpty || _isOperator(tokens.last) || tokens.last == '(')) {
+        if (char == '-' &&
+            (tokens.isEmpty ||
+                _isOperator(tokens.last) ||
+                tokens.last == '(')) {
           numberBuffer.write('-');
         } else {
           tokens.add(char);
@@ -101,7 +104,9 @@ class ExpressionEvaluator {
         stack.add(val);
       } else if (_isOperator(token)) {
         if (stack.length < 2) {
-          throw const FormatException('Malformed expression: insufficient operands');
+          throw const FormatException(
+            'Malformed expression: insufficient operands',
+          );
         }
         final right = stack.removeLast();
         final left = stack.removeLast();
