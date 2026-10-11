@@ -38,23 +38,29 @@ class DashboardPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'MoneyRecord',
-                              style: AppTypography.headline.copyWith(
-                                color: AppColors.primaryAccent,
-                                fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'MoneyRecord',
+                                style: AppTypography.headline.copyWith(
+                                  color: AppColors.primaryAccent,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                                maxLines: 1,
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'Kelola arus kas bulanan',
-                              style: AppTypography.caption,
-                            ),
-                          ],
+                              const SizedBox(height: 2),
+                              Text(
+                                'Kelola arus kas bulanan',
+                                style: AppTypography.caption,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
+                        const SizedBox(width: 8),
                         MonthSelectorHeader(
                           selectedMonth: state.selectedMonth,
                           onMonthChanged: (month) {

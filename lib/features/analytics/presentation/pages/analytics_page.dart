@@ -86,14 +86,25 @@ class AnalyticsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Analisis Keuangan', style: AppTypography.headline),
-                        const SizedBox(height: 2),
-                        Text('Evaluasi pengeluaran & tabungan', style: AppTypography.caption),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Analisis Keuangan',
+                            style: AppTypography.headline,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            'Evaluasi pengeluaran & tabungan',
+                            style: AppTypography.caption,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
+                    const SizedBox(width: 8),
                     MonthSelectorHeader(
                       selectedMonth: state.selectedMonth,
                       onMonthChanged: (m) =>

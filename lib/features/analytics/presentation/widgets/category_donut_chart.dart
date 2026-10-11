@@ -87,16 +87,16 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
                       final isTouched = i == _touchedIndex;
                       final radius = isTouched ? 34.0 : 28.0;
                       final entry = entries[i];
-                      final cat = widget.categories.firstWhere(
-                        (c) => c.id == entry.key,
-                        orElse: () => CategoryEntity(
-                          id: entry.key,
-                          name: 'Lainnya',
-                          iconName: 'category',
-                          colorValue: 0xFF64748B,
-                          type: TransactionType.expense,
-                        ),
-                      );
+                      final cat = widget.categories
+                              .where((c) => c.id == entry.key)
+                              .firstOrNull ??
+                          CategoryEntity(
+                            id: entry.key,
+                            name: 'Lainnya',
+                            iconName: 'category',
+                            colorValue: 0xFF64748B,
+                            type: TransactionType.expense,
+                          );
 
                       final percentage = (entry.value / widget.totalExpense) * 100;
 
@@ -137,16 +137,16 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
           const SizedBox(height: 20),
           // Category Legend list
           ...entries.map((entry) {
-            final cat = widget.categories.firstWhere(
-              (c) => c.id == entry.key,
-              orElse: () => CategoryEntity(
-                id: entry.key,
-                name: 'Lainnya',
-                iconName: 'category',
-                colorValue: 0xFF64748B,
-                type: TransactionType.expense,
-              ),
-            );
+            final cat = widget.categories
+                    .where((c) => c.id == entry.key)
+                    .firstOrNull ??
+                CategoryEntity(
+                  id: entry.key,
+                  name: 'Lainnya',
+                  iconName: 'category',
+                  colorValue: 0xFF64748B,
+                  type: TransactionType.expense,
+                );
             final percentage = (entry.value / widget.totalExpense) * 100;
 
             return Padding(

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class AppDateUtils {
   AppDateUtils._();
 
-  static final DateFormat _monthYearFormat = DateFormat('MMMM yyyy', 'id_ID');
+  static final DateFormat _monthYearFormat = DateFormat('MMM yyyy', 'id_ID');
   static final DateFormat _shortDateFormat = DateFormat('dd MMM yyyy', 'id_ID');
   static final DateFormat _timeFormat = DateFormat('HH:mm');
 
